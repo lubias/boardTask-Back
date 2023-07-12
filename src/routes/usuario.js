@@ -4,6 +4,7 @@ const tratarErrosEsperados = require("../functions/tratarErrosEsperados");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const EsquemaUsuario = require("../models/usuario");
+const authUser = require("../middlewares/authUser");
 const router = express.Router();
 
 router.post("/criar", conectarBancoDados, async function (req, res) {
