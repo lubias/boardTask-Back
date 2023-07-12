@@ -1,5 +1,6 @@
 const mongooseToSwagger = require('mongoose-to-swagger');
 const EsquemaUsuario = require('../src/models/usuario.js');
+const EsquemaTarefa = require('../src/models/tarefa.js');
 //const EsquemaTarefa = require('../src/models/tarefa.js');
 //const EsquemaUsuario = require('../src/models/usuario.js');
 const swaggerAutogen = require('swagger-autogen')({
@@ -30,7 +31,8 @@ let doc = {
     produces: ['aplication/json'],
     components: {
         schemas: {
-            Usuario: mongooseToSwagger(EsquemaUsuario)
+            Usuario: mongooseToSwagger(EsquemaUsuario),
+            Tarefa: mongooseToSwagger(EsquemaTarefa),
         }
     }
 };
