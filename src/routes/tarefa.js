@@ -88,4 +88,32 @@ router.get("/obter/usuario", authUser, conectarBancoDados, async function (req, 
   }
 });
 
+router.delete("/deletar/:id", authUser, conectarBancoDados, async function (req, res) {
+  try {
+    // #swagger.tags = ['Tarefa']
+    const idTarefa = req.params.id;
+    const usuarioLogado = req.usuarioJwt.id;
+
+    const checkTarefa = await EsquemaTarefa.findOne({
+      _id: idTarefa,
+      usuarioCriador: usuarioLogado,
+    });
+    if (!checkTarefa) {
+      throw new Error("Tarefa não encontrada ou pertence a outro usuário");
+    }
+
+    const respostaBD = await EsquemaTarefa.deleteOne({
+      _id: idTarefa
+    });
+
+    res.status(200).json({
+      status: "OK",
+      statusMensagem: "Tarefas deletada com sucesso.",
+      resposta: respostaBD,
+    });
+  } catch (error) {
+    return tratarErrosEsperados(res, error);
+  }
+});
+
 module.exports = router;
